@@ -1,7 +1,7 @@
 import { Link, LoaderFunctionArgs, useLoaderData } from 'react-router-dom'
 import { Post } from '../types'
 
-export const loade = async (args: LoaderFunctionArgs) => {
+export const loader = async (args: LoaderFunctionArgs) => {
   const { id } = args.params
 
   const response = await fetch(
