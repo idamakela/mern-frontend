@@ -13,14 +13,21 @@ const Header = () => {
       </Link>
       <div className='flex gap-2'>
         {isAuthenticated ? (
-          <fetcher.Form method='post' action='/log-out'>
-            <button
-              type='submit'
-              className='rounded-lg bg-neutral-400 px-3 py-1 text-sm hover:scale-105'
-            >
-              Log out
-            </button>
-          </fetcher.Form>
+          <>
+            <Link to='/create-post'>
+              <button className='rounded-lg bg-neutral-400 px-3 py-1 text-sm hover:scale-105'>
+                New post
+              </button>
+            </Link>
+            <fetcher.Form method='post' action='/log-out'>
+              <button
+                type='submit'
+                className='rounded-lg bg-neutral-400 px-3 py-1 text-sm hover:scale-105'
+              >
+                Log out
+              </button>
+            </fetcher.Form>
+          </>
         ) : (
           <>
             <Link to='/sign-up'>

@@ -8,6 +8,7 @@ import App from './App.tsx'
 import Index from './routes/Index.tsx'
 import LogIn, { action as logInAction } from './routes/LogIn.tsx'
 import SignUp, { action as signUpAction } from './routes/SignUp.tsx'
+import CreatePost, {action as createPostAction} from './routes/CreatePost.tsx'
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,11 @@ const router = createBrowserRouter([
           return redirect('/')
         },
       },
+      {
+        path: 'create-post',
+        action: createPostAction,
+        element: <CreatePost />
+      }
     ],
   },
 ])

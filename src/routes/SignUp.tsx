@@ -4,6 +4,7 @@ import {
   redirect,
   useActionData,
 } from 'react-router-dom'
+import { ActionData } from '../types'
 
 // for react router dom Forms - create something
 export const action = async (args: ActionFunctionArgs) => {
@@ -41,7 +42,7 @@ export const action = async (args: ActionFunctionArgs) => {
 
 const SignUp = () => {
   // if anything is returned from an action, this hook catches it - we use it for error handling rn
-  const error = useActionData() as { message: string } | undefined
+  const error = useActionData() as ActionData
 
   return (
     <section className='h-full flex flex-col items-center'>
