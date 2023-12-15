@@ -8,9 +8,7 @@ import auth from '../lib/auth'
 import { ActionData } from '../types'
 
 // for react router dom Forms - create something
-export const action = async (args: ActionFunctionArgs) => {
-  const { request } = args
-
+export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData()
 
   // how to get datLogIna from the form, mathers the input names

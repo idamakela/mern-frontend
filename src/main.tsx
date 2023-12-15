@@ -5,10 +5,12 @@ import React from 'react'
 
 import './index.css'
 import App from './App.tsx'
-import Index from './routes/Index.tsx'
+import Index, { loader as indexLoader } from './routes/Index.tsx'
 import LogIn, { action as logInAction } from './routes/LogIn.tsx'
 import SignUp, { action as signUpAction } from './routes/SignUp.tsx'
-import CreatePost, {action as createPostAction} from './routes/CreatePost.tsx'
+import CreatePost, { action as createPostAction } from './routes/CreatePost.tsx'
+import RequireAuth from './components/RequireAuth.tsx'
+import ShowPost, { loader as showPostLoader } from './routes/ShowPost.tsx'
 
 const router = createBrowserRouter([
   {
@@ -17,7 +19,13 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
+        loader: indexLoader,
         element: <Index />,
+      },
+      {
+        path: '/posts/:id',
+        loader: showPostLoader,
+        element: <ShowPost />,
       },
       {
         path: 'sign-up',
@@ -37,10 +45,15 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: 'create-post',
-        action: createPostAction,
-        element: <CreatePost />
-      }
+        element: <RequireAuth />,
+        children: [
+          {
+            path: 'create-post',
+            action: createPostAction,
+            element: <CreatePost />,
+          },
+        ],
+      },
     ],
   },
 ])

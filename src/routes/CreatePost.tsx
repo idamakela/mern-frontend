@@ -23,7 +23,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   if (!response.ok) {
     const { message } = await response.json()
-    return message
+    return { message }
   }
 
   return redirect('/')
@@ -56,13 +56,13 @@ const CreatePost = () => {
         </div>
         <div className='flex flex-col'>
           <label htmlFor='link' className='text-sm'>
-            Link (Optional)
+            Link (optional)
           </label>
-          <input type='link' name='link' id='link' className='border-2' />
+          <input type='text' name='link' id='link' className='border-2' />
         </div>
         <div className='flex flex-col'>
           <label htmlFor='body' className='text-sm'>
-            Body (Optional)
+            Body (optional)
           </label>
           <textarea name='body' id='body' className='border-2' />
         </div>
