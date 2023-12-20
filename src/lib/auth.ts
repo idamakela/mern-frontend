@@ -7,7 +7,7 @@ const isLoggedIn = () => {
 }
 
 const getJWT = () => {
-  localStorage.getItem('jwt')
+  return localStorage.getItem('jwt')
 }
 
 const logOut = () => {

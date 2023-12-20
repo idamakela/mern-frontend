@@ -1,12 +1,11 @@
 import { Outlet } from 'react-router-dom'
 import Header from './components/Header'
-import './App.css'
 
 function App() {
   return (
     <div className='h-screen'>
       <Header />
-      <main className='p-4'>
+      <main className='p-4 h-4/5'>
         <Outlet />
       </main>
     </div>

@@ -1,5 +1,7 @@
 import { Link, LoaderFunctionArgs, useLoaderData } from 'react-router-dom'
 import { Post } from '../types'
+import CommentForm from '../components/CommentForm'
+import Vote from '../components/Vote'
 
 export const loader = async (args: LoaderFunctionArgs) => {
   const { id } = args.params
@@ -21,34 +23,45 @@ export const loader = async (args: LoaderFunctionArgs) => {
 const ShowPost = () => {
   const post = useLoaderData() as Post
 
+  /** Another way of fetching the data
+   * const commentsFetcher = useFetcher({ key: 'comment-form-' + post._id })
+   */
+
   return (
-    <section>
-      <div>
-        {post.link ? (
-          <Link to={post.link}>
-            <h2>
-              {post.title}
-              <span>({post.link})</span>
-            </h2>
-          </Link>
-        ) : (
-          <h2>{post.title}</h2>
-        )}
-        <p>by {post.author.userName}</p>
-        {post.body && (
-          <div>
-            <p>{post.body}</p>
-          </div>
-        )}
+    <div>
+      <div className='flex'>
+        <Vote post={post} />
+        <div className='bg-neutral-300 p-2'>
+          {post.link ? (
+            <Link to={post.link} className='text-lg font-medium'>
+              <h2>
+                {post.title}
+                <span>({post.link})</span>
+              </h2>
+            </Link>
+          ) : (
+            <h2 className='text-lg font-medium'>{post.title}</h2>
+          )}
+          <p className='text-xs'>by {post.author.userName}</p>
+          {post.body && (
+            <div className='mt-2'>
+              <p>{post.body}</p>
+            </div>
+          )}
+        </div>
       </div>
-      <div>
+      <div className='mt-4 flex flex-col gap-1 border-t-2'>
         {post.comments?.map((comment) => (
-          <p key={comment._id}>
-            {comment.body} - {comment.author.userName}
+          <p key={comment._id} className='border-b-2'>
+            <span className='font-medium'>@{comment.author.userName}: </span>{' '}
+            {comment.body}
           </p>
         ))}
       </div>
-    </section>
+      <div className='mt-8'>
+        <CommentForm postId={post._id} />
+      </div>
+    </div>
   )
 }
 

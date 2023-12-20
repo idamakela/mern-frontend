@@ -15,7 +15,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     import.meta.env.VITE_BACKEND_URL + '/posts?page=' + page,
     {
       headers: {
-        'Accepts': 'application/json',
+        Accepts: 'application/json',
       },
     },
   )
@@ -35,8 +35,10 @@ const Index = () => {
   }
 
   return (
-    <section>
-      {data?.posts.map((post) => <PostItem post={post} key={post._id} />)}
+    <section className='flex flex-col justify-between h-full'>
+      <div className='flex flex-col gap-2'>
+        {data?.posts.map((post) => <PostItem post={post} key={post._id} />)}
+      </div>
       <Paginator
         currentPage={data.page}
         totalPages={data.totalPages}
