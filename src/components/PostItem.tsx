@@ -9,14 +9,14 @@ const PostItem = ({ post }: { post: Post }) => {
       <div className='flex flex-col gap-2 border-2 p-2 grow'>
         {post.link ? (
           <Link to={post.link}>
-            <h2 className='text-lg font-medium capitalize'>
+            <h2 className='text-lg font-medium first-letter:capitalize'>
               {post.title}
-              <span>({post.link})</span>
+              <span className='text-xs'> ({post.link})</span>
             </h2>
           </Link>
         ) : (
           <Link to={`/posts/${post._id}`}>
-            <h2 className='text-lg font-medium capitalize'>{post.title}</h2>
+            <h2 className='text-lg font-medium first-letter:capitalize'>{post.title}</h2>
           </Link>
         )}
         <p className='text-xs'>by {post.author.userName}</p>

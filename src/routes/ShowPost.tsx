@@ -2,6 +2,9 @@ import { Link, LoaderFunctionArgs, useLoaderData } from 'react-router-dom'
 import { Post } from '../types'
 import CommentForm from '../components/CommentForm'
 import Vote from '../components/Vote'
+import DeletePost from '../components/DeletePost'
+import auth from '../lib/auth'
+import DeleteComment from '../components/DeleteComment'
 
 export const loader = async (args: LoaderFunctionArgs) => {
   const { id } = args.params
@@ -22,6 +25,7 @@ export const loader = async (args: LoaderFunctionArgs) => {
 
 const ShowPost = () => {
   const post = useLoaderData() as Post
+  const isAuthenticated = auth.isLoggedIn()
 
   /** Another way of fetching the data
    * const commentsFetcher = useFetcher({ key: 'comment-form-' + post._id })
@@ -29,14 +33,14 @@ const ShowPost = () => {
 
   return (
     <div>
-      <div className='flex'>
+      <div className='flex bg-neutral-300'>
         <Vote post={post} />
-        <div className='bg-neutral-300 p-2'>
+        <div className='grow p-2'>
           {post.link ? (
             <Link to={post.link} className='text-lg font-medium'>
               <h2>
                 {post.title}
-                <span>({post.link})</span>
+                <span className='text-xs'> ({post.link})</span>
               </h2>
             </Link>
           ) : (
@@ -49,13 +53,24 @@ const ShowPost = () => {
             </div>
           )}
         </div>
+        {isAuthenticated && (
+          <div className='m-2'>
+            <DeletePost post={post} />
+          </div>
+        )}
       </div>
       <div className='mt-4 flex flex-col gap-1 border-t-2'>
         {post.comments?.map((comment) => (
-          <p key={comment._id} className='border-b-2'>
-            <span className='font-medium'>@{comment.author.userName}: </span>{' '}
-            {comment.body}
-          </p>
+          <div
+            key={comment._id}
+            className='flex items-center justify-between border-b-2'
+          >
+            <p>
+              <span className='font-medium'>@{comment.author.userName}: </span>{' '}
+              {comment.body}
+            </p>
+            {isAuthenticated && <DeleteComment post={post} />}
+          </div>
         ))}
       </div>
       <div className='mt-8'>

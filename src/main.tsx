@@ -13,6 +13,7 @@ import CreatePost, { action as createPostAction } from './routes/CreatePost.tsx'
 import ShowPost, { loader as showPostLoader } from './routes/ShowPost.tsx'
 import { action as createCommentAction } from './components/CommentForm.tsx'
 import { action as voteAction } from './components/Vote.tsx'
+import { action as deletePostAction } from './components/DeletePost.tsx'
 
 const router = createBrowserRouter([
   {
@@ -60,7 +61,11 @@ const router = createBrowserRouter([
           },
           {
             path: '/posts/:postId/vote',
-            action: voteAction
+            action: voteAction,
+          },
+          {
+            path: '/posts/:postId/delete',
+            action: deletePostAction,
           },
         ],
       },
