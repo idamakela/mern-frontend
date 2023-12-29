@@ -35,7 +35,7 @@ const Index = () => {
   }
 
   return (
-    <section className='flex flex-col justify-between h-full'>
+    <section className='flex h-full flex-col justify-between'>
       <div className='flex flex-col gap-2'>
         {data?.posts.map((post) => <PostItem post={post} key={post._id} />)}
       </div>

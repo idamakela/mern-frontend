@@ -3,7 +3,6 @@ import auth from '../lib/auth'
 
 const Header = () => {
   const isAuthenticated = auth.isLoggedIn()
-  // more flexible variant of action - can create forms but not the action function
   const fetcher = useFetcher()
 
   return (

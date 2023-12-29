@@ -5,8 +5,8 @@ import Vote from './Vote'
 const PostItem = ({ post }: { post: Post }) => {
   return (
     <section className='flex'>
-      <Vote post={post}/>
-      <div className='flex flex-col gap-2 border-2 p-2 grow'>
+      <Vote post={post} />
+      <div className='flex grow flex-col gap-2 border-2 p-2'>
         {post.link ? (
           <Link to={post.link}>
             <h2 className='text-lg font-medium first-letter:capitalize'>
@@ -16,7 +16,9 @@ const PostItem = ({ post }: { post: Post }) => {
           </Link>
         ) : (
           <Link to={`/posts/${post._id}`}>
-            <h2 className='text-lg font-medium first-letter:capitalize'>{post.title}</h2>
+            <h2 className='text-lg font-medium first-letter:capitalize'>
+              {post.title}
+            </h2>
           </Link>
         )}
         <p className='text-xs'>by {post.author.userName}</p>

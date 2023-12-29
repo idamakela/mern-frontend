@@ -7,17 +7,11 @@ import {
 import auth from '../lib/auth'
 import { ActionData } from '../types'
 
-// for react router dom Forms - create something
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData()
-
-  // how to get datLogIna from the form, mathers the input names
   const username = formData.get('username')
   const password = formData.get('password')
 
-  // using .env, which is already packed into vite - no config requiered
-  // add what endpoint in backend handles the request - /register
-  // send extra things with the request - obs! body needs to be a string
   const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/login', {
     headers: {
       'Content-type': 'application/json',
@@ -38,7 +32,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 }
 
 const LogIn = () => {
-  // if anything is returned from an action, this hook catches it - we use it for error handling rn
   const error = useActionData() as ActionData
 
   return (

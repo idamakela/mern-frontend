@@ -1,11 +1,15 @@
-import { ActionFunctionArgs, Form, redirect, useLocation } from 'react-router-dom'
+import {
+  ActionFunctionArgs,
+  Form,
+  redirect,
+  useLocation,
+} from 'react-router-dom'
 import { Post } from '../types'
 import auth from '../lib/auth'
 
 export const action = async (args: ActionFunctionArgs) => {
   const { postId } = args.params
   const formData = await args.request.formData()
-
   const vote = formData.get('vote')
 
   const path =
@@ -30,7 +34,7 @@ const Vote = ({ post }: { post: Post }) => {
   const location = useLocation()
 
   return (
-    <div className='flex flex-col items-center justify-center bg-[#e5e7eb] px-2 w-9'>
+    <div className='flex w-9 flex-col items-center justify-center bg-[#e5e7eb] px-2'>
       <Form method='post' action={`/posts/${post._id}/vote`}>
         <input
           type='hidden'

@@ -9,8 +9,7 @@ import auth from '../lib/auth'
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData()
-
-  const postData = Object.fromEntries(formData.entries()) // construct an object from the form entries
+  const postData = Object.fromEntries(formData.entries())
 
   const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/posts', {
     method: 'POST',

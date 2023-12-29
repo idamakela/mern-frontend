@@ -1,5 +1,5 @@
-import { Navigate, Outlet } from 'react-router-dom';
-import auth from '../lib/auth';
+import { Navigate, Outlet } from 'react-router-dom'
+import auth from '../lib/auth'
 
 const RequireAuth = () => {
   if (auth.isLoggedIn()) {
@@ -9,4 +9,4 @@ const RequireAuth = () => {
   }
 }
 
-export default RequireAuth;
+export default RequireAuth

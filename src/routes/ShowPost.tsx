@@ -27,10 +27,6 @@ const ShowPost = () => {
   const post = useLoaderData() as Post
   const isAuthenticated = auth.isLoggedIn()
 
-  /** Another way of fetching the data
-   * const commentsFetcher = useFetcher({ key: 'comment-form-' + post._id })
-   */
-
   return (
     <div>
       <div className='flex bg-neutral-300'>
