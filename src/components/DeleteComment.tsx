@@ -1,16 +1,18 @@
 import { Trash2 } from 'lucide-react'
-import { ActionFunctionArgs, Form } from 'react-router-dom'
-import { Post } from '../types'
+import { ActionFunctionArgs, Form, redirect, useLocation } from 'react-router-dom'
+import { Post, Comment } from '../types'
 import auth from '../lib/auth'
 
 export const action = async (args: ActionFunctionArgs) => {
-  const { postId } = args.params
+  const { postId, commentId } = args.params
+  const formData = await args.request.formData()
+  const path = formData.get('returnTo')?.toString()
 
   const response = await fetch(
-    import.meta.env.VITE_BACKEND_URL + `/posts/${postId}/comments`,
+    import.meta.env.VITE_BACKEND_URL + `/posts/${postId}/comments/${commentId}`,
     {
       headers: {
-        'Authorization': 'Bearer ' + auth.getJWT(),
+        'Authorization': `Bearer ${auth.getJWT()}`,
       },
       method: 'DELETE',
     },
@@ -21,16 +23,15 @@ export const action = async (args: ActionFunctionArgs) => {
     return { message }
   }
 
-  const post = (await response.json()) as Post
-
-  return {
-    comments: post.comments,
-  }
+  return redirect(path || '/')
 }
 
-const DeleteComment = ({ post }: { post: Post }) => {
+const DeleteComment = ({ post, comment }: { post: Post; comment: Comment }) => {
+  const location = useLocation()
+
   return (
-    <Form method='delete' action={`/posts/${post._id}/comments`}>
+    <Form method='delete' action={`/posts/${post._id}/comments/${comment._id}`}>
+      <input type="hidden" name='returnTo' value={location.pathname + location.search} />
       <button type='submit'>
         <Trash2 size={16} />
       </button>

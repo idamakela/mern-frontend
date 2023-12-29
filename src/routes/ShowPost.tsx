@@ -69,7 +69,7 @@ const ShowPost = () => {
               <span className='font-medium'>@{comment.author.userName}: </span>{' '}
               {comment.body}
             </p>
-            {isAuthenticated && <DeleteComment post={post} />}
+            {isAuthenticated && <DeleteComment post={post} comment={comment} />}
           </div>
         ))}
       </div>
