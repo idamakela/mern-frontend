@@ -35,8 +35,8 @@ const Index = () => {
   }
 
   return (
-    <section className='flex h-full flex-col justify-between'>
-      <div className='flex flex-col gap-2'>
+    <section>
+      <div className='flex flex-col gap-2 mb-4'>
         {data?.posts.map((post) => <PostItem post={post} key={post._id} />)}
       </div>
       <Paginator

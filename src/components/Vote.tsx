@@ -34,7 +34,7 @@ const Vote = ({ post }: { post: Post }) => {
   const location = useLocation()
 
   return (
-    <div className='flex w-9 flex-col items-center justify-center bg-[#e5e7eb] px-2'>
+    <div className='flex min-w-[36px] flex-col items-center justify-center bg-[#e5e7eb] px-[8px]'>
       <Form method='post' action={`/posts/${post._id}/vote`}>
         <input
           type='hidden'

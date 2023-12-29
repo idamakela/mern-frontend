@@ -3,9 +3,9 @@ import Header from './components/Header'
 
 function App() {
   return (
-    <div className='h-screen'>
+    <div className='h-full'>
       <Header />
-      <main className='p-4 h-4/5'>
+      <main className='h-full p-2 md:p-4'>
         <Outlet />
       </main>
     </div>
