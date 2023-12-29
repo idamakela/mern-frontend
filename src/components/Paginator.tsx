@@ -10,7 +10,7 @@ interface PaginatorProps {
 const Paginator = (props: PaginatorProps) => {
   const pages = Array.from({ length: props.totalPages }, (_, i) => i + 1)
   const location = useLocation()
-  const path = location.search  
+  const search = location.search  
 
   return (
     <div className='flex items-center justify-center gap-1 text-xs'>
@@ -18,7 +18,7 @@ const Paginator = (props: PaginatorProps) => {
         <button
           key={page}
           onClick={() => props.setPage(page)}
-          className={cn('rounded-lg bg-neutral-400 px-2 py-1 hover:scale-105', path === '?page=' + page && 'bg-neutral-200 text-neutral-500')}
+          className={cn('rounded-lg bg-neutral-400 px-2 py-1 hover:scale-105', search === '?page=' + page && 'bg-neutral-200 text-neutral-500')}
         >
           {page}
         </button>
