@@ -5,6 +5,8 @@ import Vote from '../components/Vote'
 import DeletePost from '../components/DeletePost'
 import auth from '../lib/auth'
 import DeleteComment from '../components/DeleteComment'
+import user from '../lib/user'
+import { useEffect, useState } from 'react'
 
 export const loader = async (args: LoaderFunctionArgs) => {
   const { id } = args.params
@@ -18,14 +20,26 @@ export const loader = async (args: LoaderFunctionArgs) => {
     },
   )
 
+  if (!response.ok) {
+    const { message } = await response.json()
+    return { message }
+  }
+
   const posts = await response.json()
 
   return posts
 }
 
 const ShowPost = () => {
+  const [userName, setUserName] = useState('')
   const post = useLoaderData() as Post
   const isAuthenticated = auth.isLoggedIn()
+  const isPostAuthor = post.author.userName === userName
+
+  useEffect(() => {
+    user.profile().then((data) => setUserName(data.userName)).catch(error => console.log({error}))
+  })
+  
 
   return (
     <div>
@@ -49,7 +63,7 @@ const ShowPost = () => {
             </div>
           )}
         </div>
-        {isAuthenticated && (
+        {isAuthenticated && isPostAuthor && (
           <div className='m-2'>
             <DeletePost post={post} />
           </div>
@@ -62,16 +76,20 @@ const ShowPost = () => {
             className='flex items-center justify-between border-b-2'
           >
             <p>
-              <span className='font-medium'>@{comment.author.userName}: </span>{' '}
+              <span className='font-medium'>@{comment.author.userName}: </span>
               {comment.body}
             </p>
-            {isAuthenticated && <DeleteComment post={post} comment={comment} />}
+            {isAuthenticated && comment.author.userName === userName && (
+              <DeleteComment post={post} comment={comment} />
+            )}
           </div>
         ))}
       </div>
-      <div className='mt-8'>
-        <CommentForm postId={post._id} />
-      </div>
+      {isAuthenticated && (
+        <div className='mt-8'>
+          <CommentForm postId={post._id} />
+        </div>
+      )}
     </div>
   )
 }
